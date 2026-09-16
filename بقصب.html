@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Your Cart - Gourmet Restaurant</title>
+<style>
+  * {
+    box-sizing: border-box;
+    transition: all 0.3s ease;
+  }
+
+  body {
+    background: linear-gradient(135deg, #d48484, #8b4c4c);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    min-height: 100vh;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+  }
+
+  .cart-card {
+    width: 100%;
+    max-width: 650px;
+    background-color: #ffffff;
+    border-radius: 20px;
+    padding: 30px;
+    box-shadow: 0 15px 30px rgba(0,0,0,0.25);
+  }
+
+  h2 {
+    text-align: center;
+    margin-top: 0;
+    margin-bottom: 25px;
+    color: #333;
+    font-size: 28px;
+    border-bottom: 2px solid #f0f0f0;
+    padding-bottom: 15px;
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+  }
+
+  th, td {
+    padding: 14px 10px;
+    text-align: center;
+    border-bottom: 1px solid #eee;
+  }
+
+  th {
+    background-color: #d48484;
+    color: white;
+    font-weight: 600;
+    border-radius: 6px;
+  }
+
+  .item-name {
+    font-weight: bold;
+    color: #444;
+    text-align: left;
+    padding-left: 10px;
+  }
+
+  .qty-btn {
+    width: 30px;
+    height: 30px;
+    background-color: #eee;
+    border: 1px solid #ccc;
+    border-radius: 50%;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    color: #333;
+  }
+
+  .qty-btn:hover {
+    background-color: #d48484;
+    color: white;
+    border-color: #d48484;
+  }
+
+  input[type="number"] {
+    width: 45px;
+    text-align: center;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-size: 15px;
+    padding: 4px;
+    margin: 0 5px;
+  }
+
+  .cancel {
+    background-color: #ff5252;
+    color: white;
+    border: none;
+    padding: 8px 14px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 13px;
+    font-weight: 600;
+  }
+
+  .cancel:hover {
+    background-color: #e03e3e;
+    transform: scale(1.05);
+  }
+
+  /* Summary Section */
+  .summary {
+    background-color: #fdf8f8;
+    border-radius: 12px;
+    padding: 15px 20px;
+    margin-top: 20px;
+  }
+
+  .summary-line {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+    font-size: 15px;
+    color: #555;
+  }
+
+  .summary-line.total {
+    border-top: 2px dashed #ddd;
+    padding-top: 10px;
+    font-size: 20px;
+    font-weight: bold;
+    color: #333;
+  }
+
+  /* Actions */
+  .cart-actions {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 25px;
+  }
+
+  .back a {
+    text-decoration: none;
+    color: #8b4c4c;
+    font-weight: 600;
+    font-size: 15px;
+  }
+
+  .back a:hover {
+    text-decoration: underline;
+  }
+
+  .checkout-btn {
+    background-color: #27ae60;
+    color: white;
+    border: none;
+    padding: 12px 25px;
+    border-radius: 10px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    box-shadow: 0 4px 10px rgba(39, 174, 96, 0.3);
+  }
+
+  .checkout-btn:hover {
+    background-color: #219150;
+    transform: translateY(-2px);
+  }
+
+  .empty-cart-msg {
+    display: none;
+    text-align: center;
+    padding: 30px;
+    color: #777;
+    font-size: 18px;
+  }
+</style>
+</head>
+
+<body>
+
+<div class="cart-card">
+  <h2>🛒 Your Order Cart</h2>
+
+  <table id="cart-table">
+    <thead>
+      <tr>
+        <th style="text-align: left; padding-left: 15px;">Item</th>
+        <th>Price</th>
+        <th>Quantity</th>
+        <th>Total</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody id="cart-items">
+      <tr id="row-b">
+        <td class="item-name">🍔 Burger</td>
+        <td>$<span class="price">8.50</span></td>
+        <td>
+          <button class="qty-btn" onclick="updateQty('b', -1)">-</button>
+          <input type="number" id="b" value="1" readonly>
+          <button class="qty-btn" onclick="updateQty('b', 1)">+</button>
+        </td>
+        <td>$<span class="item-total" id="total-b">8.50</span></td>
+        <td><button class="cancel" onclick="removeItem('row-b')">Remove</button></td>
+      </tr>
+
+      <tr id="row-f">
+        <td class="item-name">🍟 Fries</td>
+        <td>$<span class="price">3.00</span></td>
+        <td>
+          <button class="qty-btn" onclick="updateQty('f', -1)">-</button>
+          <input type="number" id="f" value="1" readonly>
+          <button class="qty-btn" onclick="updateQty('f', 1)">+</button>
+        </td>
+        <td>$<span class="item-total" id="total-f">3.00</span></td>
+        <td><button class="cancel" onclick="removeItem('row-f')">Remove</button></td>
+      </tr>
+
+      <tr id="row-p">
+        <td class="item-name">🍕 Pizza</td>
+        <td>$<span class="price">12.00</span></td>
+        <td>
+          <button class="qty-btn" onclick="updateQty('p', -1)">-</button>
+          <input type="number" id="p" value="1" readonly>
+          <button class="qty-btn" onclick="updateQty('p', 1)">+</button>
+        </td>
+        <td>$<span class="item-total" id="total-p">12.00</span></td>
+        <td><button class="cancel" onclick="removeItem('row-p')">Remove</button></td>
+      </tr>
+
+      <tr id="row-d">
+        <td class="item-name">🥤 Drink</td>
+        <td>$<span class="price">2.00</span></td>
+        <td>
+          <button class="qty-btn" onclick="updateQty('d', -1)">-</button>
+          <input type="number" id="d" value="1" readonly>
+          <button class="qty-btn" onclick="updateQty('d', 1)">+</button>
+        </td>
+        <td>$<span class="item-total" id="total-d">2.00</span></td>
+        <td><button class="cancel" onclick="removeItem('row-d')">Remove</button></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div id="empty-msg" class="empty-cart-msg">Your cart is empty! 🍽️</div>
+
+  <div class="summary" id="summary-sec">
+    <div class="summary-line">
+      <span>Subtotal</span>
+      <span>$<span id="subtotal">25.50</span></span>
+    </div>
+    <div class="summary-line">
+      <span>Delivery Fee</span>
+      <span>$<span id="delivery">3.00</span></span>
+    </div>
+    <div class="summary-line total">
+      <span>Grand Total</span>
+      <span>$<span id="grand-total">28.50</span></span>
+    </div>
+  </div>
+
+  <div class="cart-actions">
+    <div class="back">
+      <a href="menu.html">⬅ Back to Menu</a>
+    </div>
+    <button class="checkout-btn" onclick="checkout()">Proceed to Checkout 🚀</button>
+  </div>
+</div>
+
+<script>
+function updateQty(id, change) {
+  let input = document.getElementById(id);
+  let currentVal = parseInt(input.value);
+  let newVal = currentVal + change;
+
+  if (newVal >= 1) {
+    input.value = newVal;
+    recalculateCart();
+  }
+}
+
+function removeItem(rowId) {
+  let row = document.getElementById(rowId);
+  row.remove();
+  recalculateCart();
+  
+  // Check if cart is empty
+  let rows = document.querySelectorAll('#cart-items tr');
+  if (rows.length === 0) {
+    document.getElementById('cart-table').style.display = 'none';
+    document.getElementById('summary-sec').style.display = 'none';
+    document.getElementById('empty-msg').style.display = 'block';
+  }
+}
+
+function recalculateCart() {
+  let rows = document.querySelectorAll('#cart-items tr');
+  let subtotal = 0;
+
+  rows.forEach(row => {
+    let price = parseFloat(row.querySelector('.price').innerText);
+    let qty = parseInt(row.querySelector('input[type="number"]').value);
+    let itemTotal = price * qty;
+    
+    row.querySelector('.item-total').innerText = itemTotal.toFixed(2);
+    subtotal += itemTotal;
+  });
+
+  let delivery = subtotal > 0 ? 3.00 : 0.00;
+  let grandTotal = subtotal + delivery;
+
+  document.getElementById('subtotal').innerText = subtotal.toFixed(2);
+  document.getElementById('delivery').innerText = delivery.toFixed(2);
+  document.getElementById('grand-total').innerText = grandTotal.toFixed(2);
+}
+
+function checkout() {
+  let grandTotal = document.getElementById('grand-total').innerText;
+  if(parseFloat(grandTotal) > 0) {
+    alert(`Thank you for your order! Your total is $${grandTotal}`);
+  } else {
+    alert("Your cart is empty!");
+  }
+}
+</script>
+
+</body>
+</html>

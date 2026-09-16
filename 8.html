@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Restaurant Menu</title>
+
+    <script>
+        function addToCart(itemName) {
+            alert(itemName + " added to cart!");
+        }
+    </script>
+
+</head>
+<body>
+
+<h1 align="center">Our Menu</h1>
+
+<table border="1" width="100%" cellpadding="15" cellspacing="0">
+    <tr align="center">
+
+        <!-- Burger -->
+        <td>
+            <img src="burger.jpg" width="150" height="120"><br><br>
+            <b>Burger</b><br><br>
+            <button onclick="addToCart('Burger')">Add to Cart</button>
+        </td>
+
+        <!-- Fries -->
+        <td>
+            <img src="fries.jpg" width="150" height="120"><br><br>
+            <b>Fries</b><br><br>
+            <button onclick="addToCart('Fries')">Add to Cart</button>
+        </td>
+
+        <!-- Pizza -->
+        <td>
+            <img src="pizza.jpg" width="150" height="120"><br><br>
+            <b>Pizza</b><br><br>
+            <button onclick="addToCart('Pizza')">Add to Cart</button>
+        </td>
+
+        <!-- Drink -->
+        <td>
+            <img src="drink.jpg" width="150" height="120"><br><br>
+            <b>Drink</b><br><br>
+            <button onclick="addToCart('Drink')">Add to Cart</button>
+        </td>
+
+    </tr>
+</table>
+
+</body>
+</html>

@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Your Cart</title>
+<style>
+  body{
+    background-color: rgb(212,132,132);
+    font-family: Arial;
+  }
+
+  .cart-card{
+    width: 550px;
+    margin: 60px auto;
+    background-color: #fff;
+    border-radius: 15px;
+    padding: 25px;
+    box-shadow: 0 0 15px rgba(0,0,0,0.3);
+  }
+
+  h2{
+    text-align: center;
+    margin-bottom: 20px;
+  }
+
+  table{
+    width: 100%;
+    border-collapse: collapse;
+  }
+
+  th, td{
+    padding: 12px;
+    text-align: center;
+    border-bottom: 1px solid #ddd;
+  }
+
+  th{
+    background-color: rgb(212,132,132);
+    color: white;
+  }
+
+  .qty-btn{
+    padding: 4px 10px;
+    font-size: 16px;
+    cursor: pointer;
+  }
+
+  input[type="number"]{
+    width: 50px;
+    text-align: center;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    font-size: 16px;
+  }
+
+  .cancel{
+    background-color: #c0392b;
+    color: white;
+    border: none;
+    padding: 6px 12px;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+
+  .back{
+    text-align: center;
+    margin-top: 20px;
+  }
+
+  .back a{
+    text-decoration: none;
+    background-color: rgb(212,132,132);
+    color: white;
+    padding: 8px 15px;
+    border-radius: 8px;
+  }
+</style>
+</head>
+
+<body>
+
+<div class="cart-card">
+  <h2>Your Cart</h2>
+
+  <table>
+    <tr>
+      <th>Item</th>
+      <th>Quantity</th>
+      <th>Action</th>
+    </tr>
+
+    <tr>
+      <td>Burger</td>
+      <td>
+        <button class="qty-btn" onclick="decrease('b')">-</button>
+        <input type="number" id="b" value="1" readonly>
+        <button class="qty-btn" onclick="increase('b')">+</button>
+      </td>
+      <td><button class="cancel" onclick="cancelItem('b')">Cancel</button></td>
+    </tr>
+
+    <tr>
+      <td>Fries</td>
+      <td>
+        <button class="qty-btn" onclick="decrease('f')">-</button>
+        <input type="number" id="f" value="1" readonly>
+        <button class="qty-btn" onclick="increase('f')">+</button>
+      </td>
+      <td><button class="cancel" onclick="cancelItem('f')">Cancel</button></td>
+    </tr>
+
+    <tr>
+      <td>Pizza</td>
+      <td>
+        <button class="qty-btn" onclick="decrease('p')">-</button>
+        <input type="number" id="p" value="1" readonly>
+        <button class="qty-btn" onclick="increase('p')">+</button>
+      </td>
+      <td><button class="cancel" onclick="cancelItem('p')">Cancel</button></td>
+    </tr>
+
+    <tr>
+      <td>Drink</td>
+      <td>
+        <button class="qty-btn" onclick="decrease('d')">-</button>
+        <input type="number" id="d" value="1" readonly>
+        <button class="qty-btn" onclick="increase('d')">+</button>
+      </td>
+      <td><button class="cancel" onclick="cancelItem('d')">Cancel</button></td>
+    </tr>
+
+  </table>
+
+  <div class="back">
+    <a href="menu.html">⬅ Back to Menu</a>
+  </div>
+</div>
+
+<script>
+function increase(id){
+  let input = document.getElementById(id);
+  input.value = parseInt(input.value) + 1;
+}
+
+function decrease(id){
+  let input = document.getElementById(id);
+  if(parseInt(input.value) > 1){
+    input.value = parseInt(input.value) - 1;
+  }
+}
+
+function cancelItem(id){
+  document.getElementById(id).value = 0;
+}
+</script>
+
+</body>
+</html>

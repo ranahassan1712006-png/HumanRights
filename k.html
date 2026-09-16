@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+<title>MENU</title>
+<style>
+    body{
+        background-color: rgb(212, 132, 132);
+
+
+
+    }
+    table{
+       background-color: rgb(212, 132, 132);
+
+    }
+
+
+
+
+</style>
+</head>
+<body>
+
+   
+
+
+
+<h1 align="center">Our Menu</h1>
+
+<table border="1" width="60%" align="center" cellpadding="15" cellspacing="0">
+    <tr align="center">
+
+        
+        <td>
+            <img src="burger.jpg.jpg" width="150" height="120"><br><br>
+            <b>Burger</b><br><br>
+            <button onclick="addToCart('Burger')">Add to Cart</button>
+        </td>
+
+       
+        <td>
+            <img src="fries.jpg.jpg" width="150" height="120"><br><br>
+            <b>Fries</b><br><br>
+            <button onclick="addToCart('Fries')">Add to Cart</button>
+        </td>
+    </tr>
+
+        
+        <tr align="center">
+            <td>
+            <img src="pizza.jpg.jpg" width="150" height="120"><br><br>
+            <b>Pizza</b><br><br>
+            <button onclick="addToCart('Pizza')">Add to Cart</button>
+        </td>
+        
+
+      
+        <td>
+            <img src="drink.jpg.jpg" width="150" height="120"><br><br>
+            <b>Drink</b><br><br>
+            <button onclick="addToCart('Drink')">Add to Cart</button>
+        </td>
+
+    </tr>
+</table>
+<a href="cart.html"><button><h3> CHECK YOUR CART</h3></button></a>
+
+
+
+<script>
+let cart = [];
+
+function addToCart(item) {
+  cart.push(item);          
+  updateCart();     
+  alert(item + " added to cart");
+}
+
+function updateCart() {
+  const cartItems = document.getElementById("cartItems");
+  cartItems.innerHTML = "";
+  if(cart.length === 0){
+    cartItems.innerHTML = "<li>Cart is empty</li>";
+  } else {
+    cart.forEach(it => {
+      const li = document.createElement("li");
+      li.textContent = it;
+      cartItems.appendChild(li);
+    });
+  }
+}
+
+updateCart();
+</script>
+
+
+
+</body>
+</html>
