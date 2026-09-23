@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://ranahassan1712006-png.github.io/HumanRights/sitemap.xml
